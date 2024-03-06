@@ -4,7 +4,8 @@ const { createCanvas, loadImage } = require("canvas");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 const COINGECKO_API =
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
 // Serve static files from the "public" directory
