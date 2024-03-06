@@ -1,13 +1,16 @@
 const express = require("express");
 const axios = require("axios");
-const { createCanvas, loadImage } = require("canvas");
+const { createCanvas, loadImage, registerFont } = require("canvas");
 const path = require("path");
+
+registerFont("./public/fonts/uncut-sans.ttf", { family: "Uncut Sans" });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const COINGECKO_API =
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
+
 // Serve static files from the "public" directory
 app.use(express.static("public"));
 
@@ -62,13 +65,13 @@ app.get("/image", async (req, res) => {
   context.drawImage(imageBitcoin, 50, 80, tokenImageSize, tokenImageSize);
 
   // Set token text properties
-  context.font = "48px Arial";
+  context.font = "48px Uncut Sans";
   context.fillStyle = "#000000"; // black tex
   // Add text to the canvas
   context.fillText(bitcoinText, 180, 150);
 
   // green percentage
-  context.font = "48px Arial";
+  context.font = "48px Uncut Sans";
   context.fillStyle = "#00A83E"; // black tex
   context.fillText("+3%", 550, 150);
 

@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "build": "sudo apt-get install fontconfig"
+    "build": "yarn install"
   },
   "name": "pi-api",
   "description": "Image generator for rapsberri pi",
