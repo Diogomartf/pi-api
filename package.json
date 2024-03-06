@@ -6,13 +6,15 @@
   },
   "scripts": {
     "start": "node app.js",
-    "build": "yarn install"
+    "build": "sudo apt-get install fontconfig"
   },
   "name": "pi-api",
   "description": "Image generator for rapsberri pi",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2"
+  },
   "author": "",
   "license": "ISC"
 }
