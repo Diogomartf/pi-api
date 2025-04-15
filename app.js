@@ -28,6 +28,10 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
 
+app.get("/", (req, res) => {
+  res.send("<h1 style='text-align: center;'>Image Gen OS™</h1>");
+});
+
 app.get("/test", (req, res) => {
   const imagePath = path.join(__dirname, "public", "images/tokens.png");
   res.sendFile(imagePath);
