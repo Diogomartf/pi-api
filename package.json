@@ -9,7 +9,7 @@
     "build": "yarn install"
   },
   "name": "pi-api",
-  "description": "Image generator for rapsberri pi",
+  "description": "Image generator OS",
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {
