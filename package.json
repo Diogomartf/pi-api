@@ -1,18 +1,25 @@
 {
   "dependencies": {
+    "@vercel/og": "latest",
     "axios": "^1.6.7",
     "canvas": "^2.11.2",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "react": "^19.1.0",
+    "satori": "latest",
+    "sharp": "latest"
   },
   "scripts": {
-    "start": "node app.js",
-    "build": "yarn install"
+    "start": "node index.js",
+    "build": "npm install"
   },
   "name": "pi-api",
   "description": "Image generator OS",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/register": "^7.23.7",
     "@flydotio/dockerfile": "^0.5.2"
   },
   "author": "",
