@@ -9,6 +9,7 @@
     "sharp": "latest"
   },
   "scripts": {
+    "dev": "NODE_ENV=development node index.js",
     "start": "node index.js",
     "build": "npm install"
   },

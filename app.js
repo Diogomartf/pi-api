@@ -8,9 +8,17 @@ const TokenImage = require("./components/TokenImage").default;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3/simple/";
 const coingeckoApi = `${COINGECKO_BASE_URL}/price?ids=ethereum,bitcoin,solana&vs_currencies=usd`;
+
+// Mock data for development
+const mockApiResponse = {
+  bitcoin: { usd: 85103 },
+  ethereum: { usd: 1615.97 },
+  solana: { usd: 138.68 },
+};
 
 const tokenText = price => {
   const formattedPrice = price.toLocaleString("en-US", {
@@ -43,9 +51,16 @@ app.get("/image", async (req, res) => {
   let solText = "$4,20";
 
   try {
-    // Fetch current price of tokens
-    const response = await axios.get(coingeckoApi);
-    const { data } = response;
+    let data;
+    if (isDevelopment) {
+      console.log("Using mock data in development mode");
+      data = mockApiResponse;
+    } else {
+      // Fetch current price of tokens
+      const response = await axios.get(coingeckoApi);
+      data = response.data;
+      console.log("data:", data);
+    }
 
     if (data && data.bitcoin && data.ethereum) {
       bitcoinText = tokenText(data.bitcoin.usd);
