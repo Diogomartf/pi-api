@@ -2,64 +2,42 @@ import React from 'react';
 
 export default function TokenImage({ bitcoinPrice, ethPrice, solPrice, images }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        width: '800px',
-        height: '480px',
-        backgroundColor: 'white',
-        padding: '30px 50px',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
+    <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white p-[30px_50px]">
+      <div tw="flex items-center mb-10">
         <img
           src={images.bitcoin}
           width={110}
           height={110}
           alt="Bitcoin"
+          tw="w-[110px] h-[110px]"
         />
-        <span style={{ 
-          marginLeft: '88px',
-          fontSize: '84px',
-          fontFamily: 'sans-serif',
-          color: '#000000'
-        }}>
+        <span tw="ml-[88px] text-[84px] font-sans text-black">
           {bitcoinPrice}
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
+      <div tw="flex items-center mb-10">
         <img
           src={images.eth}
           width={110}
           height={110}
           alt="Ethereum"
+          tw="w-[110px] h-[110px]"
         />
-        <span style={{ 
-          marginLeft: '88px',
-          fontSize: '84px',
-          fontFamily: 'sans-serif',
-          color: '#000000'
-        }}>
+        <span tw="ml-[88px] text-[84px] font-sans text-black">
           {ethPrice}
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div tw="flex items-center">
         <img
           src={images.sol}
           width={110}
           height={110}
           alt="Solana"
+          tw="w-[110px] h-[110px]"
         />
-        <span style={{ 
-          marginLeft: '88px',
-          fontSize: '84px',
-          fontFamily: 'sans-serif',
-          color: '#000000'
-        }}>
+        <span tw="ml-[88px] text-[84px] font-sans text-black">
           {solPrice}
         </span>
       </div>

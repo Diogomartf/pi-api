@@ -100,6 +100,15 @@ app.get("/image", async (req, res) => {
       {
         width: 800,
         height: 480,
+        tailwindConfig: {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ["sans-serif"],
+              },
+            },
+          },
+        },
       }
     );
 
