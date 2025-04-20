@@ -9,7 +9,7 @@
     "sharp": "latest"
   },
   "scripts": {
-    "dev": "NODE_ENV=development node index.js",
+    "dev": "nodemon",
     "start": "node index.js",
     "build": "npm install"
   },
@@ -23,6 +23,7 @@
     "@babel/register": "^7.23.7",
     "@flydotio/dockerfile": "^0.5.2",
     "autoprefixer": "^10.4.21",
+    "nodemon": "^3.1.9",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4"
   },
