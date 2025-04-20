@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const React = require("react");
 const TokenImage = require("./components/TokenImage").default;
+const AiClockImage = require("./components/AiClock").default;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,7 +46,7 @@ app.get("/test", (req, res) => {
   res.sendFile(imagePath);
 });
 
-app.get("/image", async (req, res) => {
+app.get("/tokens", async (req, res) => {
   let bitcoinText = "$69,420";
   let ethText = "$4,200";
   let solText = "$4,20";
@@ -87,7 +88,6 @@ app.get("/image", async (req, res) => {
           .toString("base64"),
     };
 
-    // Create the image using Satori with JSX
     const imageResponse = new ImageResponse(
       (
         <TokenImage
@@ -111,6 +111,33 @@ app.get("/image", async (req, res) => {
         },
       }
     );
+
+    // Convert the image to a buffer and send it
+    const buffer = await imageResponse.arrayBuffer();
+    res.set("Content-Type", "image/png");
+    res.send(Buffer.from(buffer));
+  } catch (error) {
+    console.error("Error creating image:", error);
+    res.status(500).send("Error creating image");
+  }
+});
+
+app.get("/ai", async (req, res) => {
+  try {
+    // Create the image using Satori with JSX
+    const imageResponse = new ImageResponse(<AiClockImage />, {
+      width: 800,
+      height: 480,
+      tailwindConfig: {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["sans-serif"],
+            },
+          },
+        },
+      },
+    });
 
     // Convert the image to a buffer and send it
     const buffer = await imageResponse.arrayBuffer();
