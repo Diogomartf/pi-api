@@ -2,29 +2,29 @@ import React from 'react';
 
 export default function TokenImage({ bitcoinPrice, ethPrice, solPrice, images }) {
   return (
-    <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white p-[30px_50px]">
-      <div tw="flex items-center mb-10">
+    <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white py-6 px-16  text-[88px]">
+      <div tw="flex items-center mb-8">
         <img
           src={images.bitcoin}
           width={110}
           height={110}
           alt="Bitcoin"
-          tw="w-[110px] h-[110px]"
+          tw="size-[110px]"
         />
-        <span tw="ml-[88px] text-[84px] font-sans text-black">
+        <span tw="ml-16">
           {bitcoinPrice}
         </span>
       </div>
 
-      <div tw="flex items-center mb-10">
+      <div tw="flex items-center mb-8">
         <img
           src={images.eth}
           width={110}
           height={110}
           alt="Ethereum"
-          tw="w-[110px] h-[110px]"
+          tw="size-[110px]"
         />
-        <span tw="ml-[88px] text-[84px] font-sans text-black">
+        <span tw="ml-16">
           {ethPrice}
         </span>
       </div>
@@ -35,9 +35,9 @@ export default function TokenImage({ bitcoinPrice, ethPrice, solPrice, images })
           width={110}
           height={110}
           alt="Solana"
-          tw="w-[110px] h-[110px]"
+          tw="size-[110px]"
         />
-        <span tw="ml-[88px] text-[84px] font-sans text-black">
+        <span tw="ml-16">
           {solPrice}
         </span>
       </div>
