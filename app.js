@@ -23,6 +23,10 @@ const server = Bun.serve({
       return new Response(file);
     }
 
+    if (url.pathname === "/image") {
+      return await handleTokensRoute();
+    }
+
     if (url.pathname === "/tokens") {
       return await handleTokensRoute();
     }
