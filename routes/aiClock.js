@@ -1,57 +1,8 @@
-require("dotenv").config();
-const { ImageResponse } = require("@vercel/og");
-const AiClockImage = require("../components/AiClockImage").default;
-const React = require("react");
-const { Groq } = require("groq-sdk");
+import { ImageResponse } from "@vercel/og";
+import AiClockImage from "../components/AiClockImage";
+import { Groq } from "groq-sdk";
 
-async function AiClock(req, res) {
-  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-  const lisbonTime = new Date().toLocaleTimeString("en-GB", {
-    timeZone: "Europe/Lisbon",
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  const chatCompletion = await groq.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      {
-        role: "user",
-        content: lisbonTime,
-      },
-    ],
-    model: "llama-3.3-70b-versatile",
-    response_format: {
-      type: "json_object",
-    },
-  });
-
-  const aiResponse = JSON.parse(chatCompletion.choices[0]?.message?.content);
-  const aiTime = aiResponse.data;
-
-  try {
-    const imageResponse = new ImageResponse(<AiClockImage aiTime={aiTime} />, {
-      width: 800,
-      height: 480,
-    });
-
-    // Convert the image to a buffer and send it
-    const buffer = await imageResponse.arrayBuffer();
-    res.set("Content-Type", "image/png");
-    res.send(Buffer.from(buffer));
-  } catch (error) {
-    console.error("Error creating image:", error);
-    res.status(500).send("Error creating image");
-  }
-}
-
-module.exports = AiClock;
-
+// System prompt for AI Clock
 const systemPrompt = `
 You are a time-based rhyme generator. When given the current time in 24-hour format (HH:MM), create a brief, creative rhyme that incorporates that time.
 
@@ -81,3 +32,50 @@ or for "14:53":
 
 Make sure your response contains ONLY the JSON object and nothing else.
 `;
+
+export async function handleAiClockRoute() {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+  const lisbonTime = new Date().toLocaleTimeString("en-GB", {
+    timeZone: "Europe/Lisbon",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  try {
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        {
+          role: "user",
+          content: lisbonTime,
+        },
+      ],
+      model: "llama-3.3-70b-versatile",
+      response_format: {
+        type: "json_object",
+      },
+    });
+
+    const aiResponse = JSON.parse(chatCompletion.choices[0]?.message?.content);
+    const aiTime = aiResponse.data;
+
+    const imageResponse = new ImageResponse(<AiClockImage aiTime={aiTime} />, {
+      width: 800,
+      height: 480,
+    });
+
+    // Convert the image to a buffer and send it
+    const buffer = await imageResponse.arrayBuffer();
+    return new Response(buffer, {
+      headers: { "Content-Type": "image/png" },
+    });
+  } catch (error) {
+    console.error("Error creating image:", error);
+    return new Response("Error creating image", { status: 500 });
+  }
+}

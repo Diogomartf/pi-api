@@ -1,32 +1,39 @@
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const React = require("react");
-const TokensImage = require("./components/TokensImage").default;
-const AiClock = require("./routes/aiClock");
-const Tokens = require("./routes/tokens");
+import path from "path";
+import dotenv from "dotenv";
+import { handleTokensRoute } from "./routes/tokens";
+import { handleAiClockRoute } from "./routes/aiClock";
+dotenv.config(); // Load environment variables
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-const isDevelopment = process.env.NODE_ENV === "development";
+// Start the Bun server
+const server = Bun.serve({
+  port: 3000,
+  async fetch(req) {
+    const url = new URL(req.url);
 
-// Serve static files from the "public" directory
-app.use(express.static("public"));
+    // Route handling
+    if (url.pathname === "/") {
+      return new Response("<h1 style='text-align: center;'>Image Gen OS</h1>", {
+        headers: { "Content-Type": "text/html" },
+      });
+    }
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`);
+    if (url.pathname === "/test") {
+      const imagePath = path.join(process.cwd(), "public", "images/tokens.png");
+      const file = Bun.file(imagePath);
+      return new Response(file);
+    }
+
+    if (url.pathname === "/tokens") {
+      return await handleTokensRoute();
+    }
+
+    if (url.pathname === "/ai-clock") {
+      return await handleAiClockRoute();
+    }
+
+    // Default 404 response
+    return new Response("Not Found", { status: 404 });
+  },
 });
 
-app.get("/", (req, res) => {
-  res.send("<h1 style='text-align: center;'>Image Gen OS™</h1>");
-});
-
-app.get("/test", (req, res) => {
-  const imagePath = path.join(__dirname, "public", "images/tokens.png");
-  res.sendFile(imagePath);
-});
-
-app.get("/tokens", Tokens);
-
-app.get("/ai-clock", AiClock);
+console.log(`Server listening on port: ${server.port}`);

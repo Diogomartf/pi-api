@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function TokensImage({ bitcoinPrice, ethPrice, solPrice, images }) {
   return (
     <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white py-6 px-16 text-[88px]">
