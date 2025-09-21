@@ -15,6 +15,8 @@ The rhyme should:
    - Current: Modern references with a calm, balanced tone
    - Experimental: Unusual word combinations and unexpected imagery
 
+Don't forget you are at 24-hour format, which means if you receive 11:59 it will 11 am, 23:59 is 11 pm.
+
 Return ONLY a JSON object in this exact format with no additional text:
 {
   "data": "Your two-line rhyme here"
@@ -55,7 +57,7 @@ export async function handleAiClockRoute() {
           content: lisbonTime,
         },
       ],
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-20b",
       response_format: {
         type: "json_object",
       },
