@@ -1,9 +1,11 @@
+import { formatPrice } from "../lib/utils";
+
 export default function StocksImage({ stocks }) {
   const imgUrl = (ticker) =>
     `https://img.logo.dev/ticker/${ticker}?token=pk_JP3xoTJtQSeTrDFJQMFWSA`;
 
   return (
-    <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white p-4 text-[58px]">
+    <div tw="flex flex-col items-start w-[800px] h-[480px] bg-white p-5">
       {stocks.map((stock, index) => (
         <div
           key={stock.id || index}
@@ -18,7 +20,7 @@ export default function StocksImage({ stocks }) {
             />
             <div tw="flex flex-col">
               <span
-                tw="ml-3 text-[50px] max-w-[400px]"
+                tw="ml-3 text-[42px] max-w-[392px]"
                 style={{
                   overflow: "hidden",
                   whiteSpace: "nowrap",
@@ -26,13 +28,13 @@ export default function StocksImage({ stocks }) {
               >
                 {stock.name}
               </span>
-              <span tw="ml-3 text-[42px] text-gray-600">{stock.ticker}</span>
+              <span tw="ml-3 text-[40px] text-gray-600">{stock.ticker}</span>
             </div>
           </div>
           <div tw="flex flex-col items-end">
-            <span tw="text-[50px]">${stock.price.c}</span>
+            <span tw="text-[50px]">{formatPrice(stock.price.c)}</span>
             <span
-              tw={`text-[36px] ${
+              tw={`text-[37px] ${
                 stock.price.todaysChangePerc >= 0
                   ? "text-green-600"
                   : "text-red-600"

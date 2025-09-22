@@ -1,19 +1,9 @@
 import axios from "axios";
 import { ImageResponse } from "@vercel/og";
-import path from "path";
-import fs from "fs";
 import StocksImage from "../components/StocksImage";
 
 const stocksPanoramaUserId = "user_2fTCuCsOA7Spl6k37aeUMCGzAJy";
 const STOCKS_PANORAMA_API_URL = `https://stockspanorama.com/api/users/${stocksPanoramaUserId}/stocks/gainers-and-losers`;
-
-const formatPrice = (price) => {
-  const formattedPrice = price.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-  return formattedPrice;
-};
 
 export async function handleStocksRoute() {
   try {
